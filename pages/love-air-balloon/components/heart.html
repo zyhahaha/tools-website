@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=no"
+    />
+    <title>气球</title>
+    <script src="../css/index.css"></script>
+    <style>
+      @keyframes pound {
+        to {
+          transform: scale(1.4);
+        }
+      }
+      .heart {
+        width: 0.2rem;
+        height: 0.2rem;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img class="heart" src="../images/love.png" />
+    </div>
+  </body>
+  <script src="../js/common/device-init.js"></script>
+  <script type="module">
+    import animate from '../js/common/animateplus.js';
+    var heartEl = document.getElementsByClassName('heart')[0];
+
+    heartEl.style.animation = 'pound 0.25s infinite alternate';
+    const heartPlay = async () => {
+      heartEl.style.animation = '';
+      const options = await animate({
+        elements: heartEl,
+        easing: "out-elastic 1 .7",
+        duration: 3000,
+        opacity: [1, 0],
+        transform: ['scale(1)', 9]
+      });
+    };
+    
+    heartEl.addEventListener('click', () => {
+      heartPlay();
+    });
+  </script>
+</html>

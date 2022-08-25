@@ -1,0 +1,28 @@
+.paper-page {
+  width: 2.8rem;
+  height: 3.8rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 0.2rem;
+  background-color: pink;
+  color: #fff;
+  font-size: 0.14rem;
+  transform: scale(0);
+  border-radius: 0.1rem;
+  box-shadow: 4px 4px 10px pink;
+}
+.paper-page h3 {
+  padding-bottom: 0.1rem;
+  text-align: center;
+  font-size: 0.18rem;
+}
+
+.paper-page h5 {
+  padding-top: 0.2rem;
+  text-align: right;
+  font-weight: normal;
+}

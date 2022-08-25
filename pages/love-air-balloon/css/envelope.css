@@ -1,0 +1,54 @@
+.envelope-page {
+  width: 2.5rem;
+  height: 1.5rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transform: translateY(-100vh);
+  border: 3px solid pink;
+  border-radius: 5px;
+  box-shadow: 4px 4px 6px #999;
+  background-color: #fff;
+}
+.envelope-page .triangle-down {
+  width: 0;
+  height: 0;
+  border-left: 1.26rem solid transparent;
+  border-right: 1.25rem solid transparent;
+  border-top: 0.8rem solid pink;
+  border-radius: 10px;
+  position: absolute;
+  left: -5px;
+  top: -1px;
+}
+.envelope-page .triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 1.25rem solid transparent;
+  border-right: 1.27rem solid transparent;
+  border-bottom: 0.75rem solid pink;
+  border-radius: 10px;
+  position: absolute;
+  bottom: -1px;
+  left: -4px;
+}
+
+@keyframes pound {
+  to {
+    transform: scale(1.4);
+  }
+}
+
+.envelope-page .heart {
+  width: 0.2rem;
+  height: 0.2rem;
+  position: absolute;
+  top: 0.65rem;
+  left: 1.1rem;
+  z-index: 999;
+  user-select: none;
+  /* animation: pound 0.25s infinite alternate; */
+}
