@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- import Vue.js -->
+    <script src="//unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <!-- import stylesheet -->
+    <link rel="stylesheet" href="//unpkg.com/view-design/dist/styles/iview.css">
+    <!-- import iView -->
+    <script src="//unpkg.com/view-design/dist/iview.min.js"></script>
+    <style>
+        #app {
+            max-width: 500px;
+            padding: 20px;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3 style="margin-bottom: 10px;">时间戳转换工具</h3>
+        <i-form ref="formInline" :model="formData">
+            <form-item label="RGB或十六进制：">
+                <i-input type="text" v-model="formData.value" placeholder="RGB(255,255,255) 或 #FFFFFF">
+                    <template #prepend>
+                        <icon type="ios-brush-outline"></icon>
+                    </template>
+                </i-input>
+            </form-item>
+            <form-item label="结果：">
+                <i-input type="text" v-model="formData.result" placeholder="RGB(255,255,255) 或 #FFFFFF">
+                    <template #prepend>
+                        <icon type="ios-brush"></icon>
+                    </template>
+                </i-input>
+            </form-item>
+            <form-item>
+                <i-button type="primary" :disabled="!formData.value" @click="onHandler('formData')">转换</i-button>
+            </form-item>
+        </i-form>
+    </div>
+</body>
+<script src="./js/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data () {
+            return {
+                formData: {
+                    value: '',
+                    result: ''
+                }
+            }
+        },
+        methods: {
+            onHandler () {
+                let color = this.formData.value
+                if (/^#/.test(color)) {
+                    this.formData.result = HexToRgb(color)
+                } else {
+                    this.formData.result = RgbToHex(color)
+                }
+            }
+        } 
+    })
+</script>
+</html>
