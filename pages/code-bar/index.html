@@ -29,27 +29,23 @@
     <div id="app">
         <h3 style="margin-bottom: 10px;">条形码生成器</h3>
         <i-form ref="formInline" :model="formData">
-            <form-item label="时间戳（毫秒或秒）：">
-                <i-input type="text" v-model="formData.value" placeholder="1661484693504">
+            <form-item label="输入内容：">
+                <i-input type="textarea" :rows="5" v-model="formData.value" placeholder="数字、字母、符号，不支持中文">
                     <template #prepend>
                         <icon type="ios-clock-outline"></icon>
                     </template>
                 </i-input>
             </form-item>
-            <form-item label="结果：">
-                <i-input type="text" v-model="formData.result" placeholder="2022-08-26 11:31:33">
-                    <template #prepend>
-                        <icon type="ios-clock"></icon>
-                    </template>
-                </i-input>
-            </form-item>
-            <form-item>
-                <i-button type="primary" :disabled="!formData.value" @click="onHandler">转换</i-button>
-            </form-item>
         </i-form>
+        <div style="text-align: center;">
+            <img id="barcode"/>
+            <div>
+                <i-button type="primary" :disabled="!formData.value" @click="onHandler" style="min-width: 100px;">生成</i-button>
+            </div>
+        </div>
     </div>
 </body>
-<script src="./js/index.js"></script>
+<script src="./js/JsBarcode.all.min.js"></script>
 <script>
     new Vue({
         el: '#app',
@@ -63,8 +59,13 @@
         },
         methods: {
             onHandler () {
-                let timestamp = this.formData.value
-                this.formData.result = formatDate(timestamp)
+                var value = this.formData.value
+
+                JsBarcode('#barcode', value, {
+                    displayValue: true,
+                    height: 40,
+                    fontSize: 13
+                })
             }
         }
     })
