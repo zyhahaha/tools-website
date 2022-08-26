@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码生成器</title>
+    <!-- import Vue.js -->
+    <script src="//unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <!-- import stylesheet -->
+    <link rel="stylesheet" href="//unpkg.com/view-design/dist/styles/iview.css">
+    <!-- import iView -->
+    <script src="//unpkg.com/view-design/dist/iview.min.js"></script>
+    <style>
+        #app {
+            max-width: 500px;
+            padding: 20px;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3 style="margin-bottom: 10px;">二维码生成器</h3>
+        <i-form ref="formInline" :model="formData">
+            <form-item label="时间戳（毫秒或秒）：">
+                <i-input type="text" v-model="formData.value" placeholder="1661484693504">
+                    <template #prepend>
+                        <icon type="ios-clock-outline"></icon>
+                    </template>
+                </i-input>
+            </form-item>
+            <form-item label="结果：">
+                <i-input type="text" v-model="formData.result" placeholder="2022-08-26 11:31:33">
+                    <template #prepend>
+                        <icon type="ios-clock"></icon>
+                    </template>
+                </i-input>
+            </form-item>
+            <form-item>
+                <i-button type="primary" :disabled="!formData.value" @click="onHandler">转换</i-button>
+            </form-item>
+        </i-form>
+    </div>
+</body>
+<script src="./js/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data () {
+            return {
+                formData: {
+                    value: '',
+                    result: ''
+                }
+            }
+        },
+        methods: {
+            onHandler () {
+                let timestamp = this.formData.value
+                this.formData.result = formatDate(timestamp)
+            }
+        }
+    })
+</script>
+</html>
