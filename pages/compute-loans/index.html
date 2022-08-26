@@ -32,9 +32,9 @@
 <body>
     <div id="app">
         <h3 style="margin-bottom: 10px;">房贷计算器（商业贷款）（等额本息）</h3>
-        <i-button ghost type="primary" @click="onHandler">切换提前还款计算功能</i-button>
+        <i-button ghost type="primary" @click="onHandlerDdvanced">切换提前还款计算功能</i-button>
         <i-form ref="formInline" :model="formData">
-            <form-item label="本金（万元）：">
+            <form-item label="贷款（万元）：">
                 <i-input type="text" v-model="formData.debtMoneyTotalOrigin" placeholder="100">
                     <template #prepend>
                         <icon type="ios-clock-outline"></icon>
@@ -56,7 +56,9 @@
                 </i-input>
             </form-item>
             <form-item>
-                <i-button type="primary" :disabled="!formData.debtMoneyTotalOrigin" @click="onHandler">计算</i-button>
+                <div style="text-align: center;">
+                    <i-button type="primary" :disabled="!formData.debtMoneyTotalOrigin" @click="onHandler" style="min-width: 100px;">计算</i-button>
+                </div>
             </form-item>
         </i-form>
 
@@ -109,6 +111,9 @@
 
                 this.dataList = computeMoney(debtMoneyTotalOrigin, periods, rate)
                 console.log(this.dataList)
+            },
+            onHandlerDdvanced () {
+                alert('功能开发中')
             }
         }
     })
