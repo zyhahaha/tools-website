@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>时间戳转换工具</title>
     <!-- import Vue.js -->
     <script src="//unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
     <!-- import stylesheet -->
@@ -29,22 +29,22 @@
     <div id="app">
         <h3 style="margin-bottom: 10px;">时间戳转换工具</h3>
         <i-form ref="formInline" :model="formData">
-            <form-item label="RGB或十六进制：">
-                <i-input type="text" v-model="formData.value" placeholder="RGB(255,255,255) 或 #FFFFFF">
+            <form-item label="时间戳（毫秒或秒）：">
+                <i-input type="text" v-model="formData.value" placeholder="1661484693504">
                     <template #prepend>
-                        <icon type="ios-brush-outline"></icon>
+                        <icon type="ios-clock-outline"></icon>
                     </template>
                 </i-input>
             </form-item>
             <form-item label="结果：">
-                <i-input type="text" v-model="formData.result" placeholder="RGB(255,255,255) 或 #FFFFFF">
+                <i-input type="text" v-model="formData.result" placeholder="2022-08-26 11:31:33">
                     <template #prepend>
-                        <icon type="ios-brush"></icon>
+                        <icon type="ios-clock"></icon>
                     </template>
                 </i-input>
             </form-item>
             <form-item>
-                <i-button type="primary" :disabled="!formData.value" @click="onHandler('formData')">转换</i-button>
+                <i-button type="primary" :disabled="!formData.value" @click="onHandler">转换</i-button>
             </form-item>
         </i-form>
     </div>
@@ -63,14 +63,10 @@
         },
         methods: {
             onHandler () {
-                let color = this.formData.value
-                if (/^#/.test(color)) {
-                    this.formData.result = HexToRgb(color)
-                } else {
-                    this.formData.result = RgbToHex(color)
-                }
+                let timestamp = this.formData.value
+                this.formData.result = formatDate(timestamp)
             }
-        } 
+        }
     })
 </script>
 </html>

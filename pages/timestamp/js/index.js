@@ -1,47 +1,42 @@
-function RgbToHex(color) {
-    // RGB颜色值的正则
-    var reg = /^(rgb|RGB)/;
-    // var color = this;
-    if (reg.test(color)) {
-        var strHex = "#";
-        // 把RGB的3个数值变成数组
-        var colorArr = color.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
-        // 转成16进制
-        for (var i = 0; i < colorArr.length; i++) {
-            var hex = Number(colorArr[i]).toString(16);
-            if (hex === "0") {
-                hex += hex;
-            }
-            strHex += hex;
-        }
-        return strHex;
-    } else {
-        return String(color);
+/**
+ * 日期格式化
+ * @param {Object | String | Number} time 时间（毫秒时间戳、Date对象）
+ * @param {String} cFormat 要转成的日期格式 （年-月-日：{y}-{m}-{d} 或 年:月：{y}:{m}）
+ * @returns String
+ */
+function formatDate(time, cFormat) {
+    if (arguments.length === 0) {
+        return null
     }
+    if (!time) {
+        return '-'
+    }
+    const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
+    let date
+    if (typeof time === 'object') {
+        date = time
+    } else {
+        if ((typeof time === 'string') && (/^[0-9]+$/.test(time))) {
+            time = parseInt(time)
+        }
+        if ((typeof time === 'number') && (time.toString().length === 10)) {
+            time = time * 1000
+        }
+        date = new Date(time)
+    }
+    const formatObj = {
+        y: date.getFullYear(),
+        m: date.getMonth() + 1,
+        d: date.getDate(),
+        h: date.getHours(),
+        i: date.getMinutes(),
+        s: date.getSeconds(),
+        a: date.getDay()
+    }
+    const time_str = format.replace(/{([ymdhisa])+}/g, (result, key) => {
+        const value = formatObj[key]
+        if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value] }
+        return value.toString().padStart(2, '0')
+    })
+    return time_str
 }
-
-function HexToRgb(color) {
-    // 16进制颜色值的正则
-    var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-    // 把颜色值变成小写
-    color = color.toLowerCase();
-    if (reg.test(color)) {
-        // 如果只有三位的值，需变成六位，如：#fff => #ffffff
-        if (color.length === 4) {
-            var colorNew = "#";
-            for (var i = 1; i < 4; i += 1) {
-                colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
-            }
-            color = colorNew;
-        }
-        // 处理六位的颜色值，转为RGB
-        var colorChange = [];
-        for (var i = 1; i < 7; i += 2) {
-            colorChange.push(parseInt("0x" + color.slice(i, i + 2)));
-        }
-        return "RGB(" + colorChange.join(",") + ")";
-    } else {
-        return color;
-    }
-};
-
