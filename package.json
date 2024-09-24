@@ -8,6 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "babel-loader": "^9.2.1",
+    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "electron": "^31.0.2",
