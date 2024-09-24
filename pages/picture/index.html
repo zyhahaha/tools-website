@@ -32,30 +32,29 @@
 
 <body>
     <div id="app">
-        <h3 style="margin-bottom: 10px;">时间戳转换工具</h3>
+        <h3 style="margin-bottom: 10px;">图片剪切工具</h3>
         <i-form ref="formInline" :model="formData">
             <Upload :before-upload="handleUpload" type="drag" action="//jsonplaceholder.typicode.com/posts/">
                 <div style="padding: 20px 0">
                     <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-                    <p>Click or drag files here to upload</p>
+                    <p>Click or drag picture here to upload</p>
                 </div>
             </Upload>
-            <!-- <form-item label="结果：">
-                <i-input type="text" v-model="formData.result" placeholder="2022-08-26 11:31:33">
-                    <template #prepend>
-                        <icon type="ios-clock"></icon>
-                    </template>
-                </i-input>
+            <div style="height: 20px;"></div>
+            <form-item label="剪切尺寸：">
+                <input-number v-model="formData.size" controls-outside />
+            </form-item>
+            <form-item label="结果：">
+                <canvas id="picture"></canvas>
             </form-item>
             <form-item>
-                <i-button type="primary" :disabled="!formData.value" @click="onHandler">转换</i-button>
-            </form-item> -->
+                <div style="text-align: center;">
+                    <a href="" id="btn" download>
+                        <i-button type="primary">下载</i-button>
+                    </a>
+                </div>>
+            </form-item>
         </i-form>
-        <canvas id="aaa"></canvas>
-
-        <a href="" id="btn" download>
-            <i-button type="primary">下载</i-button>
-        </a>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
@@ -66,27 +65,19 @@
         data() {
             return {
                 formData: {
-                    value: '',
-                    result: ''
+                    size: 200
                 }
             }
         },
         methods: {
             handleUpload(file) {
-                // this.file = file;
-                console.log('file------------->');
-                console.log(file);
-                // let file = {}; // Blob
-                let fileData = {
+                const fileData = {
                     file: file,
-                    max: 40,
+                    max: this.formData.size,
                 };
                 const cutImg = new CutImage();
-                cutImg.cut(fileData, 'aaa').then(res => {
-                    console.log('res------------->');
-                    console.log(res);
-
-                    document.getElementById('btn').href = document.getElementById('aaa').toDataURL();
+                cutImg.cut(fileData, 'picture').then(res => {
+                    document.getElementById('btn').href = document.getElementById('picture').toDataURL();
                 })
                 return false;
             },

@@ -38,7 +38,7 @@ class CutImage {
                         if (id) {
                             canvas = document.getElementById(id);
                             // canvas = document.createElement('canvas');
-                            console.log(canvas)
+                            // console.log(canvas)
                         }
                         else {
                             canvas = document.createElement('canvas');
